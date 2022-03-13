@@ -148,3 +148,16 @@ FROM
     (
         SELECT * FROM emp WHERE deptno = 30
     )    
+
+--Analytics running total---
+SELECT *
+FROM emp
+ORDER BY deptno
+
+--Getting a SUM of SAL by DEPTNO---
+
+SELECT deptno, ename, sal,
+    SUM(sal) OVER(PARTITION BY deptno ORDER BY sal) running_total1
+    SUM(sal) OVER(PARTITION BY deptno ORDER BY sal ,rowid) running_total2
+FROM emp
+ORDER BY deptno ,sal    
