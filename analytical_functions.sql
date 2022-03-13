@@ -46,4 +46,14 @@ from
     from emp
     )
 where rn <=5
-order by sal desc
+order by sal desc;
+
+--Sort the sales people by salary from greatest to least. Give the first three rows. If there are less then three people in a department, this will return less than three records.
+SELECT *
+FROM
+    (
+        SELECT deptno, ename, sal, ROW_NUMBER()
+        OVER(PARTITION BY deptno ORDER BY sal DESC) TOP3
+    FROM emp
+    )
+WHERE top3 <= 3    
