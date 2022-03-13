@@ -136,4 +136,15 @@ SELECT deptno ,ename ,sal,
     FIRST_VALUE(ename) OVER(PARTITION BY deptno ORDER BY sal DESC) 
         AS MIN_SAL_HAS
 FROM emp
-ORDER BY deptno, ename ;        
+ORDER BY deptno, ename ;     
+
+--The following example selects, for each employee in 
+--department 30 the name of the employee with the lowest salary
+-- using an inline view
+SELECT deptno ,ename,sal,
+    FIRST_VALUE(ename)
+    OVER(ORDER BY sal DESC)AS MIN_SAL_HAS
+FROM
+    (
+        SELECT * FROM emp WHERE deptno = 30
+    )    
