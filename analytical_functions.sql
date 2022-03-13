@@ -104,3 +104,14 @@ SELECT ename,hiredate ,sal,
 FROM emp
 WHERE job = 'CLERK';
 
+------LEAD-------------------------------------------
+/*LEAD provides access to more than one row of a table 
+at the same time without a self join.*/
+---The following example provides, for each employee in the EMP table, the hire date of the employee hired just after
+SELECT ename, hiredate ,
+    LEAD(hiredate ,1)OVER(ORDER BY hiredate) as Nexthired
+
+FROM emp
+WHERE deptno = 3 ;
+
+
