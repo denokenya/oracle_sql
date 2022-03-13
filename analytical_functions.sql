@@ -189,3 +189,13 @@ FROM
     )
 
 WHERE rank <= 3 ;
+
+-----------------------------------------------------------------------
+SELECT deptno, ename, sal, dr 
+FROM
+    (
+        SELECT deptno, ename, sal, 
+            DENSE_RANK() OVER(PARTITION BY deptno ORDER BY sal DESC) dr
+        FROM emp    
+    )
+WHERE rn <= 3 ;    
