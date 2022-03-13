@@ -157,7 +157,13 @@ ORDER BY deptno
 --Getting a SUM of SAL by DEPTNO---
 
 SELECT deptno, ename, sal,
-    SUM(sal) OVER(PARTITION BY deptno ORDER BY sal) running_total1
+    SUM(sal) OVER(PARTITION BY deptno ORDER BY sal) running_total1,
     SUM(sal) OVER(PARTITION BY deptno ORDER BY sal ,rowid) running_total2
 FROM emp
-ORDER BY deptno ,sal    
+ORDER BY deptno ,sal  
+
+--Analytics Percentages within a group
+
+SELECT deptno, ename, sal, 
+    to_char(ROUND(ratio_to_report(sal) OVER(PARTITION BY deptno) *100,2),'990.00') || '%' ratio_to_report
+FROM emp ;    
