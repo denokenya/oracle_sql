@@ -128,3 +128,12 @@ SELECT deptno,ename,sal,
     OVER(PARTITION BY deptno ORDER BY sal) AS MIN_SAL_HAS
 FROM emp
 ORDER BY deptno,ename    
+
+--The following example selects, for each employee in each department, 
+--the name of the employee with the highest salary
+
+SELECT deptno ,ename ,sal,
+    FIRST_VALUE(ename) OVER(PARTITION BY deptno ORDER BY sal DESC) 
+        AS MIN_SAL_HAS
+FROM emp
+ORDER BY deptno, ename ;        
