@@ -71,5 +71,20 @@ Let's take a look at what they do:*/
 SELECT ename, sal,
     row_number() OVER(ORDER BY sal DESC)rnk,
     dense_rank() OVER(ORDER BY sal DESC) drnk
-FROM emp
-    
+FROM emp;
+-----------------------------------------------------------------
+/*Give me the set of sales people who make the top 3 salaries - 
+that is, find the set of distinct salary amounts, sort them, take the largest three, 
+and give me everyone who makes one of those values    
+*/
+SELECT *
+
+FROM
+    (
+        SELECT deptno ,ename,sal,
+        DENSE_RANK() OVER(PARTITION BY deptno ORDER BY sal DESC) TOPN
+        FROM emp
+    )
+WHERE TOPN <= 3
+ORDER BY deptno,sal DESC;
+
