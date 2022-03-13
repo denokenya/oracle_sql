@@ -88,3 +88,19 @@ FROM
 WHERE TOPN <= 3
 ORDER BY deptno,sal DESC;
 
+----------------------------------------------------------------------
+--------------LAG-----------------------------------------------------
+/*LAG provides access to more than one row of a table at the same 
+time without a self join. Given a series of rows returned from a 
+query and a position of the cursor, LAG provides access to a row at 
+a given physical offset prior to that position. If you do not specify
+ offset, then its default is 1. The optional default value is returned 
+ if the offset goes beyond the scope of the window. If you do not 
+ specify default, then its default value is null. 
+ ###The following example provides, for each person in the EMP table, 
+ the salary of the employee hired just before:### */
+SELECT ename,hiredate ,sal,
+        LAG(sal,1,0) OVER(ORDER BY hiredate) AS Prevsal
+FROM emp
+WHERE job = 'CLERK';
+
