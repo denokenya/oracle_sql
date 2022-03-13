@@ -114,4 +114,17 @@ SELECT ename, hiredate ,
 FROM emp
 WHERE deptno = 3 ;
 
+------Determine the First Value / Last Value of a Group-----------------
+--The FIRST_VALUE and LAST_VALUE functions allow you to select 
+--the first and last rows from a group. 
+--These rows are especially valuable because they are often used as 
+--the baselines in calculations
 
+
+--The following example selects, for each employee in each department,
+-- the name of the employee with the lowest salary.
+SELECT deptno,ename,sal
+    FIRST_VALUE(ename)
+    OVER(PARTITION BY deptno ORDER BY sal) AS MIN_SAL_HAS
+FROM emp
+ORDER BY deptno,ename    
