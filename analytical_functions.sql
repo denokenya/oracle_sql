@@ -19,6 +19,31 @@ Therefore, analytic functions can appear only in the select list or ORDER BY cla
 
 */
 .........................................................................................................................................................
-SELECT ename , deptno , sal , 
+SELECT ename , deptno , sal ,
     ROUND(AVG(sal) OVER(PARTITION BY deptno ),2)AS avg_sal_dept
-FROM emp ;
+FROM emp
+;
+
+/*ROW_NUMBER is an analytic function. It assigns a unique number to each row to which it is applied 
+(either each row in the partition or each row returned by the query),
+in the ordered sequence of rows specified in the order_by_clause, beginning with 1 */
+--Example 1
+
+--Let's look at what ROW_NUMBER can do. Here is an example query using ROW_NUMBER to assign an increasing number to each row in the EMP table after sorting by SAL DESC:
+
+select ename , sal,
+    row_number() over(order by sal desc) rn
+from emp
+
+order by sal desc;
+
+--I can apply a predicate to ROW_NUMBER after it is assigned. For example
+
+select *
+from
+    (
+        select ename, sal , row_number() over (order by sal desc) rn
+    from emp
+    )
+where rn <=5
+order by sal desc
