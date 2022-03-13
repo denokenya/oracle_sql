@@ -143,7 +143,7 @@ ORDER BY deptno, ename ;
 -- using an inline view
 SELECT deptno ,ename,sal,
     FIRST_VALUE(ename)
-    OVER(ORDER BY sal DESC)AS MIN_SAL_HAS
+    OVER(ORDER BY sal )AS MIN_SAL_HAS
 FROM
     (
         SELECT * FROM emp WHERE deptno = 30
