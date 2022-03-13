@@ -199,3 +199,14 @@ FROM
         FROM emp    
     )
 WHERE rn <= 3 ;    
+
+-----------Analytics Ranking Queries------------------
+
+-- Select rows from a Table
+
+SELECT deptno, ename, sal,
+    RANK() OVER(PARTITION BY deptno ORDER BY sal DESC) r,
+    DENSE_RANK() OVER(PARTITION BY deptno ORDER BY sal DESC) dr,
+    ROW_NUMBER() OVER(PARTITION BY deptno ORDER BY sal DESC) rn
+FROM emp    
+ORDER BY deptno, sal DESC ;
