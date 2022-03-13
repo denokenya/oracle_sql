@@ -19,5 +19,6 @@ Therefore, analytic functions can appear only in the select list or ORDER BY cla
 
 */
 .........................................................................................................................................................
-SELECT ename , deptno , sal , RANK() OVER(ORDER BY sal DESC) AS rank  ,DENSE_RANK() OVER(ORDER BY sal DESC) AS dense_rank
-FROM emp
+SELECT ename , deptno , sal , 
+    ROUND(AVG(sal) OVER(PARTITION BY deptno ),2)AS avg_sal_dept
+FROM emp ;
