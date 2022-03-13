@@ -167,3 +167,12 @@ ORDER BY deptno ,sal
 SELECT deptno, ename, sal, 
     to_char(ROUND(ratio_to_report(sal) OVER(PARTITION BY deptno) *100,2),'990.00') || '%' ratio_to_report
 FROM emp ;    
+
+--Analytics Top-N queries
+SELECT deptno ,ename, sal , rn
+FROM (
+    SELECT deptno ,ename ,sal ,row_number()
+        OVER(PARTITION BY deptno ORDER BY sal DESC)rn
+    FROM emp    
+    )
+WHERE rn <= 3 ;    
