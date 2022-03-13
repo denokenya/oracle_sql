@@ -53,7 +53,23 @@ SELECT *
 FROM
     (
         SELECT deptno, ename, sal, ROW_NUMBER()
-        OVER(PARTITION BY deptno ORDER BY sal DESC) TOP3
+            OVER(PARTITION BY deptno ORDER BY sal DESC) TOP3
     FROM emp
     )
-WHERE top3 <= 3    
+WHERE top3 <= 3
+
+/*Example 2
+
+Bearing this in mind, I can use other analytic functions to remove
+the ambiguity from example 1. 
+They will do so, but the analytic functions might return more than n rows.
+In my opinion, when the attribute I order by is not unique, 
+I want my query to return all of the relevant records—not just
+the first n arbitrary ones. To that end,
+I can use the RANK and DENSE_RANK analytic functions. 
+Let's take a look at what they do:*/
+SELECT ename, sal,
+    row_number() OVER(ORDER BY sal DESC)rnk,
+    dense_rank() OVER(ORDER BY sal DESC) drnk
+FROM emp
+    
