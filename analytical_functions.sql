@@ -170,9 +170,22 @@ FROM emp ;
 
 --Analytics Top-N queries
 SELECT deptno ,ename, sal , rn
-FROM (
+FROM 
+    (
     SELECT deptno ,ename ,sal ,row_number()
         OVER(PARTITION BY deptno ORDER BY sal DESC)rn
     FROM emp    
     )
-WHERE rn <= 3 ;    
+WHERE rn <= 3 ;   
+
+------------------------------------------------------
+SELECT deptno, ename, sal, rank
+
+FROM 
+    (
+        SELECT deptno, ename, sal,
+            RANK() OVER(PARTITION BY deptno ORDER BY sal DESC) rank
+        FROM emp    
+    )
+
+WHERE rank <= 3 ;
