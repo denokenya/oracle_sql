@@ -20,3 +20,7 @@ ORDER BY ename;
 SELECT ename, EXTRACT(YEAR FROM(SYSDATE - hiredate) YEAR TO MONTH) || ' Years '
     || EXTRACT(MONTH FROM (SYSDATE - hiredate) YEAR TO MONTH) || ' months '  "Interval"
 FROM emp ;  
+--------------------------------------------------------
+SELECT ename, EXTRACT(DAY FROM(SYSDATE - hiredate) DAY TO SECOND) || ' days'
+    || EXTRACT(HOUR FROM (SYSDATE - hiredate) DAY TO SECOND) || ' hours'  "Interval"
+FROM emp ;
