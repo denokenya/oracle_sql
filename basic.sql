@@ -16,6 +16,7 @@ WHERE deptno = 30
 ORDER BY ename;
 
 -------------------------------------------------------
-SELECT ename, EXTRACT(YEAR FROM(SYSDATE - hiredate) YEAR TO MONTH) || "Years"
-    || EXTRACT(MONTH FROM (SYSDATE - hiredate) YEAR TO MONTH) || "months" "Interval"
-FROM emp ;    
+--Using Extract
+SELECT ename, EXTRACT(YEAR FROM(SYSDATE - hiredate) YEAR TO MONTH) || ' Years '
+    || EXTRACT(MONTH FROM (SYSDATE - hiredate) YEAR TO MONTH) || ' months '  "Interval"
+FROM emp ;  
